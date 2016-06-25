@@ -20,9 +20,9 @@
                             Creation <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li role="presentation"><a href="test">Home</a></li>
-                            <li role="presentation"><a href="#">Profile</a></li>
-                            <li role="presentation"><a href="#">Messages</a></li>
+                            <li>{!! Html::link('category/create', 'Category Create') !!}</li>
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Messages</a></li>
                         </ul>
                     </li>
                     <li class="dropdown" id="registration-creation">
