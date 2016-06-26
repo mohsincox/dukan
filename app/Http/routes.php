@@ -21,3 +21,4 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 Route::get('/test', 'TestController@index');
 Route::resource('category', 'CategoryController');
+Route::resource('unit', 'UnitController');
