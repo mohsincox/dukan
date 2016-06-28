@@ -24,7 +24,7 @@ class UnitRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required|unique:units'
         ];
     }
 }

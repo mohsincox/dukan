@@ -22,7 +22,7 @@
                         <ul class="dropdown-menu">
                             <li>{!! Html::link('category/create', 'Category Create') !!}</li>
                             <li>{!! Html::link('unit/create', 'Unit Create') !!}</li>
-
+                            <li>{!! Html::link('product/create', 'Product Create') !!}</li>
                         </ul>
                     </li>
 
@@ -32,9 +32,9 @@
                         </a>
                         <ul class="dropdown-menu">
 
-                            <li role="presentation">{!! Html::link('category', 'Category List') !!}</li>
-                            <li role="presentation">{!! Html::link('unit', 'Unit List') !!}</li>
-                            <li role="presentation"><a href="#">Messages</a></li>
+                            <li>{!! Html::link('category', 'Category List') !!}</li>
+                            <li>{!! Html::link('unit', 'Unit List') !!}</li>
+                            <li>{!! Html::link('product', 'Product List') !!}</li>
 
                         </ul>
                     </li>
