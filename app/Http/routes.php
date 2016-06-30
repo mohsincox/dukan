@@ -23,3 +23,5 @@ Route::get('/test', 'TestController@index');
 Route::resource('category', 'CategoryController');
 Route::resource('unit', 'UnitController');
 Route::resource('product', 'ProductController');
+Route::resource('sale', 'SaleController');
+Route::get('show-per-unit-price', 'SaleController@perPrice');
