@@ -5,6 +5,7 @@
 		<div class="row">
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 			<div class="col-sm-12">
+
 				@if (Session::has('flash_notification.message'))
 					<div class="alert alert-{{ Session::get('flash_notification.level') }}">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -12,6 +13,9 @@
 						{{ Session::get('flash_notification.message') }}
 					</div>
 				@endif
+
+				<h2>Product Sale</h2>
+				<hr>
 				<div class="col-sm-7">
 					@include('sale._form')
 				</div>

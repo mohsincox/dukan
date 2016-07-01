@@ -13,7 +13,9 @@ class SaleController extends Controller
 {
     public function index()
     {
-        return 'test';
+        $sales = Sale::with(['product.category', 'product.unit'])->get();
+
+        return view('sale.index', compact('sales'));
     }
 
     public function create()
@@ -32,8 +34,6 @@ class SaleController extends Controller
 
     public function store(SaleRequest $request)
     {
-
-
         $product = Product::find($request->product_id);
         $totalQuantity = $product->quantity;
         $saleQuantity = $request->quantity;
