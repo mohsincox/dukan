@@ -11,6 +11,11 @@ use App\Http\Requests\SaleRequest;
 
 class SaleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $sales = Sale::with(['product.category', 'product.unit'])->get();
@@ -52,5 +57,29 @@ class SaleController extends Controller
         flash()->error('There is no sufficient quantity');
 
         return redirect('sale/create');
+    }
+
+    public function salePrint($id)
+    {
+        $sale = Sale::with(['product.category', 'product.unit'])->find($id);
+
+        return view('sale.print', compact('sale'));
+    }
+
+    public function saleReturn($id)
+    {
+        $sale = Sale::with('product')->find($id);
+        $saleQuantity = $sale->quantity;
+        $stockQuantity = $sale->product->quantity;
+        $sale->update([
+            'quantity' => $sale->quantity - $saleQuantity,
+            'price' => 0
+        ]);
+
+        $product = Product::find($sale->product_id);
+        $product->update(['quantity' => $saleQuantity + $stockQuantity]);
+
+        return redirect('sale');
+
     }
 }

@@ -25,3 +25,5 @@ Route::resource('unit', 'UnitController');
 Route::resource('product', 'ProductController');
 Route::resource('sale', 'SaleController');
 Route::get('show-per-unit-price', 'SaleController@perPrice');
+Route::get('sale/{id?}/print', 'SaleController@salePrint');
+Route::get('sale/{id?}/return', 'SaleController@saleReturn');
