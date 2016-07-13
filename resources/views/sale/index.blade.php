@@ -17,15 +17,20 @@
 			</thead>
 			<tbody>
 				@foreach($sales as $sale)
+					<?php
+					$date=date_create($sale->updated_at);
+
+					?>
 					<tr>
 						<td>{{ $sale->id }}</td>
 						<td>{{ $sale->product->name.' '.$sale->product->category->name }}</td>
 						<td>{{ $sale->quantity.' '.$sale->product->unit->name }}</td>
 						<td>{{ $sale->price.' Taka' }}</td>
-						<td>{{ $sale->updated_at }}</td>
+						<td>{{ date_format($date,"d/m/Y H:i:s") }}</td>
 						<td>
 							{!! Html::link("/sale/$sale->id/return", 'Return', ['class' => 'btn btn-primary btn-xs']) !!}
 							{!! Html::link("/sale/$sale->id/print", 'Print', ['class' => 'btn btn-primary btn-xs']) !!}
+							{!! Html::link("/sale/$sale->id/damage", 'Damage', ['class' => 'btn btn-primary btn-xs']) !!}
 						</td>
 					</tr>
 				@endforeach

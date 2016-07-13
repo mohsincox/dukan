@@ -6,8 +6,11 @@
 			<h3 class="text-center">Omok Dukan</h3>
 			<p class="text-center">Gulshan Maramari, Gulshan, Dhaka</p>
 			<div class="row">
+				<?php
+					$date = date_create($sale->updated_at)
+				?>
 				<p class="col-xs-6 text-left">Voucher No. : &nbsp; <strong>{{ $sale->id }}</strong></p>
-				<p class="col-xs-6 text-right">Sale Date: &nbsp; <strong>{{ $sale->updated_at }}</strong></p>
+				<p class="col-xs-6 text-right">Sale Date: &nbsp; <strong>{{ date_format($date, 'd/m/Y') }}</strong></p>
 			</div>
 			<div class="row">
 				<p class="text-center">Product Name: &nbsp; <strong>{{ $sale->product->name.' '.$sale->product->category->name }}</strong></p>

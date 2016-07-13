@@ -73,13 +73,22 @@ class SaleController extends Controller
         $stockQuantity = $sale->product->quantity;
         $sale->update([
             'quantity' => $sale->quantity - $saleQuantity,
-            'price' => 0
+            'price' => ($sale->price * 10)/100,
         ]);
 
         $product = Product::find($sale->product_id);
         $product->update(['quantity' => $saleQuantity + $stockQuantity]);
 
         return redirect('sale');
+    }
 
+    public function damage($id)
+    {
+        $sale = Sale::find($id);
+        $sale->update([
+            'price' => 0
+        ]);
+
+        return redirect('sale');
     }
 }

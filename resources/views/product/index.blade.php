@@ -31,10 +31,14 @@
 						<td>{{ $product->unit->name }}</td>
 						<td>{{ $product->quantity }}</td>
 						<td>{{ $product->price }}</td>
-						<td>{!! Html::link("/product/$product->id/edit", 'Edit', ['class' => 'btn btn-primary btn-xs']) !!}</td>
+						<td>
+							{!! Html::link("/product/$product->id/edit", 'Edit', ['class' => 'btn btn-primary btn-xs']) !!}
+							{!! Html::link("/product/$product->id/add", 'Add', ['class' => 'btn btn-primary btn-xs']) !!}
+						</td>
 					</tr>
 				@endforeach
 			</tbody>
 		</table>
+		{{ Auth::user()->name }}
 	</div>
 @endsection

@@ -56,10 +56,27 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $id)
     {
         $product = Product::find($id);
-
         $product->update($request->all());
 
         flash()->message($product->name . ' Successfully Updated');
+
+        return redirect('product');
+    }
+
+    public function add($id)
+    {
+        $product = Product::with('category')->find($id);
+
+        return view('product.add', compact('id', 'product'));
+    }
+
+    public function storeInStock(Request $request, $id)
+    {
+        $store = Product::find($id);
+        $total = $store->quantity + $request->quantity;
+        $store->update(['quantity' => $total]);
+
+        flash()->message($request->quantity . ' item(s) Successfully stored');
 
         return redirect('product');
     }
