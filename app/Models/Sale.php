@@ -9,9 +9,11 @@ class Sale extends Model
     protected $table = 'sales';
 
     protected $fillable = [
+        'customer_id',
         'product_id',
         'quantity',
-        'price'
+        'price',
+        'cash'
     ];
 
     public function product()
