@@ -17,7 +17,9 @@ class CustomerController extends Controller
 
     public function index()
     {
-        return 'test';
+        $customers = Customer::get();
+
+        return view('customer.index', compact('customers'));
     }
 
     public function create()
@@ -27,7 +29,27 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
-        Customer::create($request->all());
-        //return $request->all();
+        $customer = Customer::create($request->all());
+
+        flash()->success($customer->name.' Successfully Created');
+
+        return redirect()->back();
+    }
+
+    public function edit($id)
+    {
+       $customer = Customer::find($id);
+
+        return view('customer.edit', compact('customer'));
+    }
+
+    public function update(CustomerRequest $request, $id)
+    {
+        $customer = Customer::find($id);
+        $customer->update($request->all());
+
+        flash()->success($customer->name.' Successfully Updated');
+
+        return redirect('customer');
     }
 }

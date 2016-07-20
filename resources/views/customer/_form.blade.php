@@ -1,5 +1,8 @@
+@if(isset($customer))
+	{!! Form::model($customer, ['url' => "customer/$customer->id", 'method' => 'put']) !!}
+@else
 {!! Form::open(['url' => 'customer', 'method' => 'post']) !!}
-
+@endif
 	<div class="form-group" {{ $errors->has('name') ? 'has-error' : '' }}>
 		{!! Form::label('name', 'Customer Name', ['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-9">
@@ -13,7 +16,7 @@
 	<div class="form-group" {{ $errors->has('mobile_no') ? 'has-error' : '' }}>
 		{!! Form::label('mobile_no', 'Mobile No', ['class' => 'col-sm-3']) !!}
 		<div class="col-sm-9">
-			{!! Form::text('mobile_no', null, ['class' => 'form-control', 'placeholder' => 'Enter Mobile No', 'autocomplete' => 'off']) !!}
+			{!! Form::text('mobile_no', null, ['class' => 'form-control numeric_field', 'placeholder' => 'Enter Mobile No', 'autocomplete' => 'off', 'maxlength' => '11', 'data-mask' => '99999-999-999']) !!}
 			<span class="help-block text-danger">
 				{{ $errors->first('mobile_no') }}
 			</span>

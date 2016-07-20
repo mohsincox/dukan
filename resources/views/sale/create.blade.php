@@ -20,6 +20,7 @@
 					@include('sale._form')
 				</div>
 				<div class="col-sm-5">
+					<div id="ajax-portion-customer"></div>
 					<div id="ajax-portion"></div>
 				</div>
 			</div>

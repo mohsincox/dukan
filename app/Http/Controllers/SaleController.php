@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
@@ -26,8 +27,9 @@ class SaleController extends Controller
     public function create()
     {
         $productId = Product::lists('name', 'id');
+        $customerId = Customer::lists('name', 'id');
 
-        return view('sale.create', compact('productId'));
+        return view('sale.create', compact('productId', 'customerId'));
     }
 
     public function perPrice(Request $request)
