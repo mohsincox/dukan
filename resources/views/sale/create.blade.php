@@ -21,23 +21,43 @@
 				</div>
 				<div class="col-sm-5">
 					<div id="ajax-portion-customer"></div>
-					<div id="ajax-portion"></div>
+					<div id="ajax-portion-price"></div>
 				</div>
 			</div>
 			<script>
+				//show customer balance
+				$(function() {
+					$(document).on('change', '#customer-id', function() {
+						var customerId = $('#customer-id').val();
+						var value = 'id='+customerId;
+						//alert(value);
+						$url = "/show-customer-balance";
+						$.ajax({
+							type:"GET",
+							url:$url,
+							data:value
+						}).success(function(data) {
+							$('#ajax-portion-customer').html(data);
+						})
+								.error(function (data) {
+								});
+
+					});
+				});
+
 				//show per unit price
 				$(function() {
-					$(document).on('change', '#extra', function(){
-						var productId = $('#extra').val();
+					$(document).on('change', '#product-id', function(){
+						var productId = $('#product-id').val();
 						var values = 'id='+productId;
-						$('#price').hide().val();
+						//$('#price').hide().val();
 						$url  = "/show-per-unit-price";
 						$.ajax({
 							type: "GET",
 							url:$url,
 							data:values
 						}).success(function (data) {
-							$('#ajax-portion').html(data);
+							$('#ajax-portion-price').html(data);
 						})
 								.error(function (data) {
 								});

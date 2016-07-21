@@ -32,6 +32,13 @@ class SaleController extends Controller
         return view('sale.create', compact('productId', 'customerId'));
     }
 
+    public function customerBalance(Request $request)
+    {
+        $customer = Customer::find($request->id);
+
+        return view('sale.balance', compact('customer'));
+    }
+
     public function perPrice(Request $request)
     {
         $price = Product::find($request->id);

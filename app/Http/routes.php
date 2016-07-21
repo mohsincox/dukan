@@ -20,12 +20,15 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/test', 'TestController@index');
+Route::get('/program1', 'TestController@program1');
+Route::post('/program2', 'TestController@program2');
 Route::resource('category', 'CategoryController');
 Route::resource('unit', 'UnitController');
 Route::resource('product', 'ProductController');
 Route::get('product/{id?}/add', 'ProductController@add');
 Route::post('product/{id?}/store-in-stock', 'ProductController@storeInStock');
 Route::resource('sale', 'SaleController');
+Route::get('show-customer-balance', 'SaleController@customerBalance');
 Route::get('show-per-unit-price', 'SaleController@perPrice');
 Route::get('sale/{id?}/print', 'SaleController@salePrint');
 Route::get('sale/{id?}/return', 'SaleController@saleReturn');

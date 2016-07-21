@@ -3,7 +3,7 @@
 	<div class="form-group" {{ $errors->has('customer_id') ? 'has-error' : '' }}>
 		{!! Form::label('customer_id', 'Select Customer', ['class' => 'col-sm-3']) !!}
 		<div class="col-sm-9">
-			{!! Form::select('customer_id', $customerId, null, ['class' => 'form-control', 'placeholder' => 'Select Customer', 'id' => 'for-customer-balance']) !!}
+			{!! Form::select('customer_id', $customerId, null, ['class' => 'form-control', 'placeholder' => 'Select Customer', 'id' => 'customer-id']) !!}
 			<span class="help-block text-danger">
 					{{ $errors->first('customer_id') }}
 				</span>
@@ -13,7 +13,7 @@
 	<div class="form-group" {{ $errors->has('product_id') ? 'has-error' : '' }}>
 		{!! Form::label('product_id', 'Select Product', ['class' => 'col-sm-3']) !!}
 		<div class="col-sm-9">
-			{!! Form::select('product_id', $productId, null, ['class' => 'form-control', 'placeholder' => 'Select Product', 'id' => 'extra']) !!}
+			{!! Form::select('product_id', $productId, null, ['class' => 'form-control', 'placeholder' => 'Select Product', 'id' => 'product-id']) !!}
 			<span class="help-block text-danger">
 				{{ $errors->first('product_id') }}
 			</span>
@@ -36,6 +36,17 @@
 			{!! Form::number('price', null, ['class' => 'form-control', 'id' => 'total_price']) !!}
 			<span class="help-block text-danger">
 				{{ $errors->first('price') }}
+			</span>
+		</div>
+	</div>
+
+
+	<div class="form-group" {{ $errors->has('cash') ? 'has-error' : '' }}>
+		{!! Form::label('cash', 'Cash', ['class' => 'col-sm-3 control-label']) !!}
+		<div class="col-sm-9">
+			{!! Form::number('cash', null, ['class' => 'form-control']) !!}
+			<span class="help-block text-danger">
+				{{ $errors->first('cash') }}
 			</span>
 		</div>
 	</div>
