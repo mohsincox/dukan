@@ -48,12 +48,20 @@ class SaleController extends Controller
 
     public function store(SaleRequest $request)
     {
+        $customer = Customer::find($request->customer_id);
+        $previousBalance = $customer->balance;
+        $cashPaid = $request->cash;
+        $remainBalance = $previousBalance - $cashPaid;
+        //return $previousBalance;
+
         $product = Product::find($request->product_id);
         $totalQuantity = $product->quantity;
         $saleQuantity = $request->quantity;
         $remainQuantity = $totalQuantity - $saleQuantity;
 
         if($remainQuantity >= 0) {
+            $customer->update(['balance' => $remainBalance]);
+
             $product->update(['quantity' => $remainQuantity]);
 
             Sale::create($request->all());

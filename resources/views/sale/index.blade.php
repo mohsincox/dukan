@@ -11,6 +11,8 @@
 					<th>Name</th>
 					<th>Quantity</th>
 					<th>Price</th>
+					<th>Cash Received</th>
+					<th>Due</th>
 					<th>Date</th>
 					<th>Action</th>
 				</tr>
@@ -26,6 +28,8 @@
 						<td>{{ $sale->product->name.' '.$sale->product->category->name }}</td>
 						<td>{{ $sale->quantity.' '.$sale->product->unit->name }}</td>
 						<td>{{ $sale->price.' Taka' }}</td>
+						<td>{{ $sale->cash.' Taka' }}</td>
+						<td>{{ $sale->price - $sale->cash.' Taka' }}</td>
 						<td>{{ date_format($date,"d/m/Y H:i:s") }}</td>
 						<td>
 							{!! Html::link("/sale/$sale->id/return", 'Return', ['class' => 'btn btn-primary btn-xs']) !!}
