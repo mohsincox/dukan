@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sale extends Model
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     protected $table = 'sales';
 
     protected $fillable = [
@@ -19,5 +24,10 @@ class Sale extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

@@ -13,19 +13,24 @@
 				<p class="col-xs-6 text-right">Sale Date: &nbsp; <strong>{{ date_format($date, 'd/m/Y') }}</strong></p>
 			</div>
 			<div class="row">
-				<p class="text-center">Product Name: &nbsp; <strong>{{ $sale->product->name.' '.$sale->product->category->name }}</strong></p>
+				<p class="col-xs-6 text-left">Customer Name: &nbsp; <strong>{{ $sale->customer->name }}</strong></p>
+				<p class="col-xs-6 text-right">Product Name: &nbsp; <strong>{{ $sale->product->name.' '.$sale->product->category->name }}</strong></p>
 			</div>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th>Quantity</th>
 						<th>Price</th>
+						<th>Cash</th>
+						<th>Dues</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>{{ $sale->quantity.' '.$sale->product->unit->name }}</td>
 						<td>{{ $sale->price.' Taka' }}</td>
+						<td>{{ $sale->cash.' Taka' }}</td>
+						<td>{{ $sale->price - $sale->cash.' Taka' }}</td>
 					</tr>
 				</tbody>
 			</table>

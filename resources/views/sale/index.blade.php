@@ -8,7 +8,8 @@
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Name</th>
+					<th>Customer Name</th>
+					<th>Product Name</th>
 					<th>Quantity</th>
 					<th>Price</th>
 					<th>Cash Received</th>
@@ -20,16 +21,21 @@
 			<tbody>
 				@foreach($sales as $sale)
 					<?php
-					$date=date_create($sale->updated_at);
-
+					$date = date_create($sale->updated_at);
+					$due = $sale->price - $sale->cash;
 					?>
 					<tr>
 						<td>{{ $sale->id }}</td>
+						<td>{{ $sale->customer->name }}</td>
 						<td>{{ $sale->product->name.' '.$sale->product->category->name }}</td>
 						<td>{{ $sale->quantity.' '.$sale->product->unit->name }}</td>
 						<td>{{ $sale->price.' Taka' }}</td>
 						<td>{{ $sale->cash.' Taka' }}</td>
-						<td>{{ $sale->price - $sale->cash.' Taka' }}</td>
+						@if($due > 0)
+							<td>{{ $due.' Taka' }}</td>
+						@else
+							<td>{{ '0 Taka' }}</td>
+						@endif
 						<td>{{ date_format($date,"d/m/Y H:i:s") }}</td>
 						<td>
 							{!! Html::link("/sale/$sale->id/return", 'Return', ['class' => 'btn btn-primary btn-xs']) !!}

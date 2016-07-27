@@ -19,7 +19,7 @@ class SaleController extends Controller
 
     public function index()
     {
-        $sales = Sale::with(['product.category', 'product.unit'])->get();
+        $sales = Sale::with(['product.category', 'product.unit', 'customer'])->get();
 
         return view('sale.index', compact('sales'));
     }
@@ -85,27 +85,36 @@ class SaleController extends Controller
 
     public function saleReturn($id)
     {
-        $sale = Sale::with('product')->find($id);
+        $sale = Sale::with(['product'])->find($id);
         $saleQuantity = $sale->quantity;
         $stockQuantity = $sale->product->quantity;
+        $fine = ($sale->price * 10)/100;
+        $returnBalance = $sale->cash - $fine;
         $sale->update([
             'quantity' => $sale->quantity - $saleQuantity,
-            'price' => ($sale->price * 10)/100,
+            'price' => $sale->price,
+            'cash' => $fine,
         ]);
 
         $product = Product::find($sale->product_id);
         $product->update(['quantity' => $saleQuantity + $stockQuantity]);
+
+        $customer = Customer::find($sale->customer_id);
+        $remainBalance = $customer->balance;
+        $customer->update(['balance' => $remainBalance + $returnBalance]);
 
         return redirect('sale');
     }
 
     public function damage($id)
     {
+//        $sale = Sale::find($id);
+//        $sale->update([
+//            'price' => 0
+//        ]);
+//
+//        return redirect('sale');
         $sale = Sale::find($id);
-        $sale->update([
-            'price' => 0
-        ]);
-
-        return redirect('sale');
+        $sale->delete();
     }
 }
