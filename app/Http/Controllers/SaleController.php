@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
+use App\Http\Requests\SaleRequest;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Requests\SaleRequest;
 
 class SaleController extends Controller
 {
@@ -115,6 +114,9 @@ class SaleController extends Controller
 //
 //        return redirect('sale');
         $sale = Sale::find($id);
+        $cash = $sale->cash;
+        $customer = Customer::find($sale->customer_id);
+        $customer->update(['balance' => $customer->balance + $cash]);
         $sale->delete();
     }
 }
