@@ -158,6 +158,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         \Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        'App\Providers\HelperServiceProvider',
 
     ],
 
@@ -208,6 +209,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'Cart' => \Gloudemans\Shoppingcart\Facades\Cart::class,
+
 
     ],
 

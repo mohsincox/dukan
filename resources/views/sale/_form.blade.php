@@ -44,7 +44,7 @@
 	<div class="form-group" {{ $errors->has('cash') ? 'has-error' : '' }}>
 		{!! Form::label('cash', 'Cash', ['class' => 'col-sm-3 control-label']) !!}
 		<div class="col-sm-9">
-			{!! Form::number('cash', null, ['class' => 'form-control']) !!}
+			{!! Form::number('cash', null, ['class' => 'form-control numeric_field',  'step'=>'any']) !!}
 			<span class="help-block text-danger">
 				{{ $errors->first('cash') }}
 			</span>

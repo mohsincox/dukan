@@ -34,6 +34,9 @@
 					</tr>
 				</tbody>
 			</table>
+			{{number_format( $sale->cash, 2) }}
+			{{--{{ number_to_word($sale->cash) }}--}}
+			Cash In Word: <i>{{ convert_number_to_words($sale->cash + 0) }} Tk. only.</i>
 		</div>
 	</div>
 @endsection
