@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalesTable extends Migration
+class CreateSaleDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,18 @@ class CreateSalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales', function (Blueprint $table) {
+        Schema::create('sale_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customer_id')->unsigned();
-            $table->foreign('customer_id')
-                ->references('id')->on('customers')
-                ->onDelete('cascade');
+            $table->integer('sale_id')->unsigned();
+            $table->foreign('sale_id')
+                  ->references('id')->on('sales')
+                  ->onDelete('cascade');
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')
-                ->references('id')->on('products')
-                ->onDelete('cascade');
-            $table->integer('quantity');
+                  ->references('id')->on('products')
+                  ->onDelete('cascade');
             $table->float('price');
-            $table->float('cash');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -37,6 +34,6 @@ class CreateSalesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('sales');
+        Schema::drop('sale_details');
     }
 }

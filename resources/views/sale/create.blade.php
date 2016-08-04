@@ -22,6 +22,47 @@
 				<div class="col-sm-5">
 					<div id="ajax-portion-customer"></div>
 					<div id="ajax-portion-price"></div>
+					<div>
+						<table class="table table-stiped">
+							<thead>
+								<tr>
+									<th>Sale Id</th>
+									<th>Product Name</th>
+									<th>Price</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+							@foreach($addedList as $key=>$item)
+									<tr>
+										<td>{{$item->id }}</td>
+										<td>{{ $item->name }}</td>
+										<td>{{ $item->price }}</td>
+										<td style=""><a class="btn btn-danger btn-xs" href="{!! url('sale/remove-list/'. $key) !!}">
+												<i class="fa fa-trash"></i>
+											</a>
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+
+
+					<div class="row">
+						<hr>
+
+
+						<div class="form-group col-sm-12">
+							{!! Form::button('<i class="fa fa-save"></i> Save', [
+                                                  'class'     => 'btn btn-success',
+                                                  'type'      => 'submit',
+                                              ]) !!}
+							<a href="{{ url('outdoor/emergency/clear-services-list') }}" class="btn btn-danger"><i class="fa fa-times"></i> Clear</a>
+						</div>
+					</div>
+
+
 				</div>
 			</div>
 			<script>

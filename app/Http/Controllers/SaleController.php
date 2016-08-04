@@ -7,10 +7,14 @@ use App\Http\Requests\SaleRequest;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\SaleDetail;
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class SaleController extends Controller
 {
+    protected $_list = 'list';
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,10 +29,57 @@ class SaleController extends Controller
 
     public function create()
     {
+        $addedList = Cart::instance($this->_list)->content();
+       // dd($addedList);
+
         $productId = Product::lists('name', 'id');
         $customerId = Customer::lists('name', 'id');
 
-        return view('sale.create', compact('productId', 'customerId'));
+        return view('sale.create', compact('productId', 'customerId', 'addedList'));
+    }
+
+    public function addToList( Request $request )
+    {
+        //return $request->all();
+        $product = Product::find($request->product_id);
+
+        Cart::instance($this->_list)->add([
+                'id' => $product->id,
+                'name' => $product->name,
+                'qty' => 1,
+                'price' => $product->price,
+            ]);
+
+        return redirect('/sale/create');
+    }
+
+    public function removeList($rowId)
+    {
+        Cart::instance($this->_list)->remove($rowId);
+        flash()->warning('One item is removed from List.');
+
+        return redirect()->back();
+    }
+
+    public function saveCart()
+    {
+        $sales = Cart::instance($this->_list)->content();
+        if(count($sales)){
+            $insData = [];
+            //$i = 1;
+            foreach ($sales as $item) {
+                $insData= [
+                    //'id'  => $i++,
+                    'sale_id'  => $item->product_id,
+                    'amount'  => $item->price,
+                ];
+
+                $saleDetails[] = SaleDetail::create($insData);
+            }
+        }else{
+            flash()->warning('No service has been added to List.');
+            return redirect()->back()->withInput();
+        }// end of details creating if
     }
 
     public function customerBalance(Request $request)

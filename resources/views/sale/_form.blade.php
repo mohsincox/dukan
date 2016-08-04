@@ -1,4 +1,4 @@
-{!! Form::open(['url' => 'sale', 'method' => 'post']) !!}
+{!! Form::open(['url' => 'sale/add-to-list', 'method' => 'post']) !!}
 
 	<div class="form-group" {{ $errors->has('customer_id') ? 'has-error' : '' }}>
 		{!! Form::label('customer_id', 'Select Customer', ['class' => 'col-sm-3']) !!}
