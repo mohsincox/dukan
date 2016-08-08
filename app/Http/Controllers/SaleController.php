@@ -15,6 +15,15 @@ class SaleController extends Controller
 {
     protected $_list = 'list';
 
+    protected $addSaleRules = [
+        'product_id' => 'required',
+       // 'price' => 'required|numeric',
+    ];
+
+    protected $saleRules = [
+       //'customer_id' => 'required'
+    ];
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -30,8 +39,9 @@ class SaleController extends Controller
     public function create()
     {
         $addedList = Cart::instance($this->_list)->content();
-       // dd($addedList);
-
+//dd($addedList);
+//        $productId[''] = "SeLect A Pro";
+//        $productId = $productId + Product::lists('name', 'id')->toArray();
         $productId = Product::lists('name', 'id');
         $customerId = Customer::lists('name', 'id');
 
@@ -41,13 +51,16 @@ class SaleController extends Controller
     public function addToList( Request $request )
     {
         //return $request->all();
+        $this->validate($request, $this->addSaleRules);
+        //return $request->all();
         $product = Product::find($request->product_id);
 
         Cart::instance($this->_list)->add([
                 'id' => $product->id,
                 'name' => $product->name,
-                'qty' => 1,
+                'qty' => $request->input('quantity'),
                 'price' => $product->price,
+                'options' => ['product_id' => $request->input('product_id')],
             ]);
 
         return redirect('/sale/create');
@@ -61,17 +74,26 @@ class SaleController extends Controller
         return redirect()->back();
     }
 
-    public function saveCart()
+    public function saveCart(Request $request)
     {
-        $sales = Cart::instance($this->_list)->content();
-        if(count($sales)){
+
+        //return $request->all();
+        $this->validate($request, $this->saleRules);
+        //$request->total_price = abs($request->price);
+        $sale = Sale::create($request->all());
+        //return $request->all();
+
+       $cartSales = Cart::instance($this->_list)->content();
+
+        if(count($cartSales)){
             $insData = [];
-            //$i = 1;
-            foreach ($sales as $item) {
+
+            foreach ($cartSales as $item) {
                 $insData= [
-                    //'id'  => $i++,
-                    'sale_id'  => $item->product_id,
-                    'amount'  => $item->price,
+                    'sale_id' => $sale->id,
+                    'product_id' => $item->options->product_id,
+                    'quantity' => $item->qty,
+                    'sub_total'  => $item->subtotal,
                 ];
 
                 $saleDetails[] = SaleDetail::create($insData);

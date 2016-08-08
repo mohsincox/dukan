@@ -23,12 +23,26 @@
 					<div id="ajax-portion-customer"></div>
 					<div id="ajax-portion-price"></div>
 					<div>
+						{!! Form::open(['url' => 'sale/save-cart', 'method' => 'post']) !!}
+
+						<div class="form-group" {{ $errors->has('customer_id') ? 'has-error' : '' }}>
+							{!! Form::label('customer_id', 'Select Customer', ['class' => 'col-sm-3']) !!}
+							<div class="col-sm-9">
+								{!! Form::select('customer_id', $customerId, null, ['class' => 'form-control', 'placeholder' => 'Select Customer', 'id' => 'customer-id']) !!}
+								<span class="help-block text-danger">
+										{{ $errors->first('customer_id') }}
+									</span>
+							</div>
+						</div>
+
 						<table class="table table-stiped">
 							<thead>
 								<tr>
 									<th>Sale Id</th>
 									<th>Product Name</th>
-									<th>Price</th>
+									<th>Quantity</th>
+									<th>Unit Price</th>
+									<th>Sub Total</th>
 									<th>Delete</th>
 								</tr>
 							</thead>
@@ -37,7 +51,9 @@
 									<tr>
 										<td>{{$item->id }}</td>
 										<td>{{ $item->name }}</td>
+										<td>{{ $item->qty }}</td>
 										<td>{{ $item->price }}</td>
+										<td>{{ $item->subtotal }}</td>
 										<td style=""><a class="btn btn-danger btn-xs" href="{!! url('sale/remove-list/'. $key) !!}">
 												<i class="fa fa-trash"></i>
 											</a>
@@ -45,22 +61,60 @@
 									</tr>
 								@endforeach
 							</tbody>
+							<tfoot>
+							<tr>
+								<th></th>
+								<th class="text-right"><strong>Total =</strong></th>
+								<th class="text-right">
+									<strong>{!!  Cart::total() - Cart::tax()  !!}</strong>
+
+								</th>
+							</tr>
+							</tfoot>
 						</table>
-					</div>
 
-
-					<div class="row">
-						<hr>
-
-
-						<div class="form-group col-sm-12">
-							{!! Form::button('<i class="fa fa-save"></i> Save', [
-                                                  'class'     => 'btn btn-success',
-                                                  'type'      => 'submit',
-                                              ]) !!}
-							<a href="{{ url('outdoor/emergency/clear-services-list') }}" class="btn btn-danger"><i class="fa fa-times"></i> Clear</a>
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label for="dues">Discount</label>
+								{!! Form::text('discount', 0, ['class' => 'form-control set-number', 'id' => 'discount',  'autocomplete' => 'off']) !!}
+							</div>
 						</div>
+
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label for="total_price">Grand Total</label>
+								{!! Form::text('total_price', Cart::total() - Cart::tax(), ['class' => 'form-control set-number', 'id' => 'grand_total', 'readonly', 'autocomplete' => 'off']) !!}
+							</div>
+						</div>
+
+						<div class="col-sm-3">
+							<div class="form-group  {{$errors->first('cash')?'has-error' : ''}}">
+								<label for="cash">Cash</label>
+								{!! Form::text('cash', Cart::total() - Cart::tax(), ['class' => 'form-control set-number', 'id' => 'cash', 'autocomplete' => 'off']) !!}
+							</div>
+						</div>
+
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label for="dues">Dues</label>
+								{!! Form::text('due', 0, ['class' => 'form-control set-number', 'id' => 'due', 'readonly', 'autocomplete' => 'off']) !!}
+							</div>
+						</div>
+
+
+						<div class="row">
+							<hr>
+							<div class="form-group col-sm-12">
+								{!! Form::button('<i class="fa fa-save"></i> Save', [
+                                                      'class'     => 'btn btn-success',
+                                                      'type'      => 'submit',
+                                                  ]) !!}
+							</div>
+						</div>
+						{!! Form::close() !!}
 					</div>
+
+
 
 
 				</div>
