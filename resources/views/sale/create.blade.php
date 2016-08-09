@@ -109,13 +109,11 @@
                                                       'class'     => 'btn btn-success',
                                                       'type'      => 'submit',
                                                   ]) !!}
+								{{ Html::link('sale/clear-all-lists', 'Clear', ['class' => 'btn btn-danger fa fa-times']) }}
 							</div>
 						</div>
 						{!! Form::close() !!}
 					</div>
-
-
-
 
 				</div>
 			</div>

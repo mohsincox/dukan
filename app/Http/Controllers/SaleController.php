@@ -74,9 +74,21 @@ class SaleController extends Controller
         return redirect()->back();
     }
 
+    public function clearAllLists()
+    {
+        if (Cart::instance($this->_list)->count() > 0) {
+            Cart::instance($this->_list)->destroy();
+            flash()->error('All item(s) are removed from List.');
+            return redirect()->back();
+        }
+
+        flash()->warning('List is already Empty.');
+        return redirect()->back();
+
+    }
+
     public function saveCart(Request $request)
     {
-
         //return $request->all();
         $this->validate($request, $this->saleRules);
         //$request->total_price = abs($request->price);
@@ -102,6 +114,17 @@ class SaleController extends Controller
             flash()->warning('No service has been added to List.');
             return redirect()->back()->withInput();
         }// end of details creating if
+    }
+
+    public function voucherPrint()
+    {
+        $sale = Sale::with('customer')->find(2);
+
+        $saleDetails = SaleDetail::with(['product.category', 'product.unit'])
+            ->where('sale_id', $sale->id)
+            ->get();
+
+        return view('sale.voucher_print', compact('sale', 'saleDetails'));
     }
 
     public function customerBalance(Request $request)

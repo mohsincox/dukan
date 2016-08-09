@@ -14,4 +14,9 @@ class SaleDetail extends Model
       'quantity',
       'sub_total'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

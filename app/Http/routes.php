@@ -33,6 +33,8 @@ Route::resource('product', 'ProductController');
 
 Route::post('sale/add-to-list', 'SaleController@addToList');
 Route::get('sale/remove-list/{rowId}', 'SaleController@removeList');
+Route::get('sale/clear-all-lists', 'SaleController@clearAllLists');
+Route::get('sale/voucher-print', 'SaleController@voucherPrint');
 Route::get('show-customer-balance', 'SaleController@customerBalance');
 Route::get('show-per-unit-price', 'SaleController@perPrice');
 Route::get('sale/{id?}/print', 'SaleController@salePrint');
