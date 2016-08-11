@@ -18,11 +18,13 @@ class TestController extends Controller
     
     public function index()
     {
-        Cart::add('293ad', 'Product 1', 1, 9.99, ['size' => 'large'])->associate('Product');
+       $a = 1;
+        while($a!=0){
+            //$rem=$a%10;
+            $a=floor($a/10);
+            echo $a.'<br>';
+        }
 
-
-        //return view('test');
-        return view('cart');
     }
 
     public function program1()

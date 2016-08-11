@@ -37,29 +37,29 @@
                     <td>{{ $detail->product->name.' '.$detail->product->category->name }}</td>
                     <td>{{ $detail->product->price }}</td>
                     <td>{{ $detail->quantity. ' '.$detail->product->unit->name }}</td>
-                    <td>{{ $detail->sub_total }}</td>
+                    <td class="text-right">{{ $detail->sub_total }}</td>
                     <?php $sum = $sum + $detail->sub_total; ?>
                 </tr>
                     @endforeach
                 <tr>
-                    <th colspan="4">Total</th>
-                    <td>{{ $sum }}</td>
+                    <th class="text-right" colspan="4">Total</th>
+                    <td class="text-right">{{ $sum }}</td>
                 </tr>
                 <tr>
-                    <th colspan="4">Vat</th>
-                    <td>{{ $sale->vat }}</td>
+                    <th class="text-right" colspan="4">Vat</th>
+                    <td class="text-right">{{ $sale->vat }}</td>
                 </tr>
                 <tr>
-                    <th style="" colspan="4">Discount</th>
-                    <td>{{ $sale->discount }}</td>
+                    <th class="text-right" colspan="4">Discount</th>
+                    <td class="text-right">{{ $sale->discount }}</td>
                 </tr>
                 <tr>
-                    <th colspan="4">Cash</th>
-                    <td>{{ $sale->cash }}</td>
+                    <th class="text-right" colspan="4">Cash</th>
+                    <td class="text-right">{{ $sale->cash }}</td>
                 </tr>
                 <tr>
-                    <th colspan="4">Due</th>
-                    <td>{{ $sale->due }}</td>
+                    <th class="text-right" colspan="4">Due</th>
+                    <td class="text-right">{{ $sale->due }}</td>
                 </tr>
                 </tbody>
             </table>

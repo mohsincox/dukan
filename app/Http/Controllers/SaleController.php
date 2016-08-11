@@ -114,11 +114,13 @@ class SaleController extends Controller
             flash()->warning('No service has been added to List.');
             return redirect()->back()->withInput();
         }// end of details creating if
+
+        return redirect('sale/voucher-print/'.$sale->id);
     }
 
-    public function voucherPrint()
+    public function voucherPrint(Request $request, $id)
     {
-        $sale = Sale::with('customer')->find(2);
+        $sale = Sale::with('customer')->find($id);
 
         $saleDetails = SaleDetail::with(['product.category', 'product.unit'])
             ->where('sale_id', $sale->id)
