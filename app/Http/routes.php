@@ -51,3 +51,6 @@ Route::get('user/change-password-form', 'UserController@changePasswordForm');
 Route::post('user/change-password-store', 'UserController@changePasswordStore');
 Route::post('user/change-password', 'UserController@changePassword');
 Route::resource('user', 'UserController');
+
+Route::get('file-upload', 'FileController@fileUpload');
+Route::post('file-save', 'FileController@fileSave');

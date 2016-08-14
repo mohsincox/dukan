@@ -114,7 +114,7 @@ class SaleController extends Controller
             flash()->warning('No service has been added to List.');
             return redirect()->back()->withInput();
         }// end of details creating if
-
+        $this->clearAllLists();
         return redirect('sale/voucher-print/'.$sale->id);
     }
 
